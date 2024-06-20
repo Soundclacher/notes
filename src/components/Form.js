@@ -13,7 +13,7 @@ const Form = ({ setNotes, notes }) => {
 
             setNotes(
                 prev => {
-                    const newNotes = [...prev, { title: value, date: new Date().toLocaleString(), id: prev.length > 1 ? prev.length - 1 : prev.length }]
+                    const newNotes = [...prev, { title: value, date: new Date().toLocaleString(), id: prev.length }]
                     localStorage.setItem('notes', JSON.stringify(newNotes));
                     return newNotes;
                 }
