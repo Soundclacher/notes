@@ -1,7 +1,7 @@
-import React, {useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 import AlertContext from "../context/alert/alertContext";
 
-const Form = () => {
+const Form = ({ setNotes, notes }) => {
     const [value, setValue] = useState('');
     const alert = useContext(AlertContext);
 
@@ -10,13 +10,22 @@ const Form = () => {
 
         if (value.trim()) {
             alert.show('Заметка создана', 'success');
+
+            setNotes(
+                prev => {
+                    const newNotes = [...prev, { title: value, date: new Date().toLocaleString(), id: prev.length > 1 ? prev.length - 1 : prev.length }]
+                    localStorage.setItem('notes', JSON.stringify(newNotes));
+                    return newNotes;
+                }
+            );
+
             setValue('');
-            } else {
-                alert.show(' Введите название заметки', 'danger');
-        
-            }
+        } else {
+            alert.show(' Введите название заметки', 'danger');
+
         }
-    
+    }
+
 
     return (
         <>

@@ -1,6 +1,19 @@
 import React from "react";
 
-const Notes = ({ notes }) => {
+const Notes = ({ notes, setNotes }) => {
+
+    const deleteHandler = (id) =>  {
+        setNotes(prev => {
+
+            let filtered  =  prev.filter((note)  =>  note.id!== id);
+
+            localStorage.setItem("notes", 
+                JSON.stringify(filtered)
+            );
+            return [...filtered];
+        })
+    }
+
     return (
         <>
             <ul className="List-group">
@@ -17,6 +30,7 @@ const Notes = ({ notes }) => {
                         <button
                             type="button"
                             className="btn btn-outline-danger btn-sm"
+                            onClick={event => deleteHandler(note.id)}
                         >
                             &times;
                         </button>
